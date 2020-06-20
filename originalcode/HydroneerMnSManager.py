@@ -15,8 +15,9 @@ wx.ID_ModList = 1000
 wx.ID_SaveFiles = 1001
 wx.ID_FileExit = 1002
 wx.ID_ToolsAssetEditor = 1003
-wx.ID_ToolsHydroneerSaveEdit = 1004
-wx.ID_HelpAbout = 1005
+wx.ID_ToolsBlender = 1004
+wx.ID_ToolsHydroneerSaveEdit = 1005
+wx.ID_HelpAbout = 1006
 
 ###########################################################################
 ## Class FrameMain
@@ -104,6 +105,9 @@ class FrameMain ( wx.Frame ):
 		self.menuItemToolsAssetEditor = wx.MenuItem( self.menuTools, wx.ID_ToolsAssetEditor, u"Asset Editor", wx.EmptyString, wx.ITEM_NORMAL )
 		self.menuTools.Append( self.menuItemToolsAssetEditor )
 
+		self.menuItemToolsBlender = wx.MenuItem( self.menuTools, wx.ID_ToolsBlender, u"Blender", wx.EmptyString, wx.ITEM_NORMAL )
+		self.menuTools.Append( self.menuItemToolsBlender )
+
 		self.menuItemToolsHydroneerSaveEdit = wx.MenuItem( self.menuTools, wx.ID_ToolsHydroneerSaveEdit, u"Hydroneer Save Edit", wx.EmptyString, wx.ITEM_NORMAL )
 		self.menuTools.Append( self.menuItemToolsHydroneerSaveEdit )
 
@@ -123,6 +127,7 @@ class FrameMain ( wx.Frame ):
 		# Connect Events
 		self.Bind( wx.EVT_MENU, self.menuItemFileExitOnMenuSelection, id = self.menuItemFileExit.GetId() )
 		self.Bind( wx.EVT_MENU, self.menuItemToolsAssetEditorOnMenuSelection, id = self.menuItemToolsAssetEditor.GetId() )
+		self.Bind( wx.EVT_MENU, self.menuItemToolsBlenderOnMenuSelection, id = self.menuItemToolsBlender.GetId() )
 		self.Bind( wx.EVT_MENU, self.menuItemToolsHydroneerSaveEditOnMenuSelection, id = self.menuItemToolsHydroneerSaveEdit.GetId() )
 		self.Bind( wx.EVT_MENU, self.menuItemHelpAboutOnMenuSelection, id = self.menuItemHelpAbout.GetId() )
 
@@ -135,6 +140,9 @@ class FrameMain ( wx.Frame ):
 		event.Skip()
 
 	def menuItemToolsAssetEditorOnMenuSelection( self, event ):
+		event.Skip()
+
+	def menuItemToolsBlenderOnMenuSelection( self, event ):
 		event.Skip()
 
 	def menuItemToolsHydroneerSaveEditOnMenuSelection( self, event ):

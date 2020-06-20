@@ -25,8 +25,9 @@ wx.ID_ModList = 1000
 wx.ID_SaveFiles = 1001
 wx.ID_FileExit = 1002
 wx.ID_ToolsAssetEditor = 1003
-wx.ID_ToolsHydroneerSaveEditor = 1004
-wx.ID_HelpAbout = 1005
+wx.ID_ToolsBlender = 1004
+wx.ID_ToolsHydroneerSaveEdit = 1005
+wx.ID_HelpAbout = 1006
 
 ###########################################################################
 ## Class FrameMain
@@ -114,8 +115,11 @@ class FrameMain ( wx.Frame ):
 		self.menuItemToolsAssetEditor = wx.MenuItem( self.menuTools, wx.ID_ToolsAssetEditor, u"Asset Editor", wx.EmptyString, wx.ITEM_NORMAL )
 		self.menuTools.Append( self.menuItemToolsAssetEditor )
 
-		self.menuItemToolsHydroneerSaveEditor = wx.MenuItem( self.menuTools, wx.ID_ToolsHydroneerSaveEditor, u"Hydroneer Save Editor", wx.EmptyString, wx.ITEM_NORMAL )
-		self.menuTools.Append( self.menuItemToolsHydroneerSaveEditor )
+		self.menuItemToolsBlender = wx.MenuItem( self.menuTools, wx.ID_ToolsBlender, u"Blender", wx.EmptyString, wx.ITEM_NORMAL )
+		self.menuTools.Append( self.menuItemToolsBlender )
+
+		self.menuItemToolsHydroneerSaveEdit = wx.MenuItem( self.menuTools, wx.ID_ToolsHydroneerSaveEdit, u"Hydroneer Save Edit", wx.EmptyString, wx.ITEM_NORMAL )
+		self.menuTools.Append( self.menuItemToolsHydroneerSaveEdit )
 
 		self.menubarMain.Append( self.menuTools, u"Tools" )
 
@@ -133,7 +137,8 @@ class FrameMain ( wx.Frame ):
 		# Connect Events
 		self.Bind( wx.EVT_MENU, self.menuItemFileExitOnMenuSelection, id = self.menuItemFileExit.GetId() )
 		self.Bind( wx.EVT_MENU, self.menuItemToolsAssetEditorOnMenuSelection, id = self.menuItemToolsAssetEditor.GetId() )
-		self.Bind( wx.EVT_MENU, self.menuItemToolsHydroneerSaveEditorOnMenuSelection, id = self.menuItemToolsHydroneerSaveEditor.GetId() )
+		self.Bind( wx.EVT_MENU, self.menuItemToolsBlenderOnMenuSelection, id = self.menuItemToolsBlender.GetId() )
+		self.Bind( wx.EVT_MENU, self.menuItemToolsHydroneerSaveEditOnMenuSelection, id = self.menuItemToolsHydroneerSaveEdit.GetId() )
 		self.Bind( wx.EVT_MENU, self.menuItemHelpAboutOnMenuSelection, id = self.menuItemHelpAbout.GetId() )
 
 	def __del__( self ):
@@ -142,16 +147,20 @@ class FrameMain ( wx.Frame ):
 
 	# Virtual event handlers, overide them in your derived class
 	def menuItemFileExitOnMenuSelection( self, event ):
-		 sys.exit() 
+		sys.exit()
 
 	def menuItemToolsAssetEditorOnMenuSelection( self, event ):
 		os.startfile('Tools\\Asset Editor.exe')
 
-	def menuItemToolsHydroneerSaveEditorOnMenuSelection( self, event ):
+	def menuItemToolsBlenderOnMenuSelection( self, event ):
+		subprocess.run("start steam://run/365670", shell=True)
+
+	def menuItemToolsHydroneerSaveEditOnMenuSelection( self, event ):
 		os.startfile('Tools\\HydroneerSaveEdit.exe')
 
 	def menuItemHelpAboutOnMenuSelection( self, event ):
 		wx.MessageBox('Hydroneer MOD & SAVE Manager \n Written By \n Raziel23x', 'About', wx.OK | wx.ICON_INFORMATION)
+
 		
 
 class MainApp (wx.App) :
