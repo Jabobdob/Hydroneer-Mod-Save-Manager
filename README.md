@@ -29,3 +29,7 @@ I use the latest version of wxFormBuilder to use to design the GUI
 Make sure to backup the original files before regenerating the GUI files.
 With changes in the GUI make sure make a copy to be able to port over the changes quickly as the program wipes the files clean of any changes and creates new files.
 
+Pyinstaller
+==============
+just run the py2exe.bat in the source code folder to compile the py script to a windows exe version for distribution for though who do not have python installed
+
