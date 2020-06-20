@@ -18,6 +18,10 @@ Installation
 Python 2.7.6 or higher
 wxPython
 
+Standalone Binary
+==============
+This the stand alone version which does not require python installed to run the application
+
 Developers
 ==============
 I use the latest version of wxFormBuilder to use to design the GUI
