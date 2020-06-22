@@ -9,15 +9,17 @@
 
 import wx
 import wx.xrc
-import wx.dataview
 
-wx.ID_ModList = 1000
-wx.ID_SaveFiles = 1001
-wx.ID_FileExit = 1002
-wx.ID_ToolsAssetEditor = 1003
-wx.ID_ToolsBlender = 1004
-wx.ID_ToolsHydroneerSaveEdit = 1005
-wx.ID_HelpAbout = 1006
+wx.ID_MODLIST = 1000
+wx.ID_MODLISTENABLEDISABLE = 1001
+wx.ID_MODLISTBACKUP = 1002
+wx.ID_SAVEFILESDELETE = 1003
+wx.ID_SAVEFILESBACKUP = 1004
+wx.ID_FileExit = 1005
+wx.ID_ToolsAssetEditor = 1006
+wx.ID_ToolsBlender = 1007
+wx.ID_ToolsHydroneerSaveEdit = 1008
+wx.ID_HelpAbout = 1009
 
 ###########################################################################
 ## Class FrameMain
@@ -34,59 +36,67 @@ class FrameMain ( wx.Frame ):
 
 		bSizerMainFrame = wx.BoxSizer( wx.VERTICAL )
 
-		self.panelMain = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		bSizerTabs = wx.BoxSizer( wx.VERTICAL )
+		self.m_notebook2 = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_panelMODLIST = wx.Panel( self.m_notebook2, wx.ID_MODLIST, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer9 = wx.BoxSizer( wx.VERTICAL )
 
-		bSizer4 = wx.BoxSizer( wx.VERTICAL )
+		bSizer10 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.notebookModSaves = wx.Notebook( self.panelMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.panelMods = wx.Panel( self.notebookModSaves, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.panelMods.SetToolTip( u"List of Mods installed" )
+		self.toggleBtnMODLISTENABLEDISABLE = wx.ToggleButton( self.m_panelMODLIST, wx.ID_MODLISTENABLEDISABLE, u"Enable/Disable", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer10.Add( self.toggleBtnMODLISTENABLEDISABLE, 0, wx.ALL, 0 )
 
-		bSizerMods = wx.BoxSizer( wx.VERTICAL )
-
-		bSizerModDir = wx.BoxSizer( wx.VERTICAL )
-
-		self.dataViewListCtrlMods = wx.dataview.DataViewListCtrl( self.panelMods, wx.ID_ModList, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizerModDir.Add( self.dataViewListCtrlMods, 0, wx.ALL|wx.EXPAND, 0 )
+		self.toggleBtnMODLISTBACKUP = wx.ToggleButton( self.m_panelMODLIST, wx.ID_MODLISTBACKUP, u"Backup", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.toggleBtnMODLISTBACKUP.SetValue( True )
+		bSizer10.Add( self.toggleBtnMODLISTBACKUP, 0, wx.ALL, 0 )
 
 
-		bSizerMods.Add( bSizerModDir, 0, wx.ALL|wx.EXPAND, 0 )
+		bSizer9.Add( bSizer10, 0, wx.ALL|wx.EXPAND, 0 )
+
+		bSizer17 = wx.BoxSizer( wx.VERTICAL )
+
+		checkListMODLISTChoices = []
+		self.checkListMODLIST = wx.CheckListBox( self.m_panelMODLIST, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListMODLISTChoices, 0 )
+		bSizer17.Add( self.checkListMODLIST, 0, wx.ALL|wx.EXPAND, 0 )
 
 
-		self.panelMods.SetSizer( bSizerMods )
-		self.panelMods.Layout()
-		bSizerMods.Fit( self.panelMods )
-		self.notebookModSaves.AddPage( self.panelMods, u"Mod List", False )
-		self.panelSaves = wx.Panel( self.notebookModSaves, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.panelSaves.SetToolTip( u"List of Save files" )
-
-		bSizerSaves = wx.BoxSizer( wx.VERTICAL )
-
-		bSizerSaveDir = wx.BoxSizer( wx.VERTICAL )
-
-		self.dataViewListCtrlSaves = wx.dataview.DataViewListCtrl( self.panelSaves, wx.ID_SaveFiles, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizerSaveDir.Add( self.dataViewListCtrlSaves, 0, wx.ALL|wx.EXPAND, 0 )
+		bSizer9.Add( bSizer17, 0, wx.ALL|wx.EXPAND, 0 )
 
 
-		bSizerSaves.Add( bSizerSaveDir, 0, wx.ALL|wx.EXPAND, 0 )
+		self.m_panelMODLIST.SetSizer( bSizer9 )
+		self.m_panelMODLIST.Layout()
+		bSizer9.Fit( self.m_panelMODLIST )
+		self.m_notebook2.AddPage( self.m_panelMODLIST, u"MOD LIST", False )
+		self.m_panel7 = wx.Panel( self.m_notebook2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer91 = wx.BoxSizer( wx.VERTICAL )
+
+		bSizer101 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.toggleBtnSAVEFILESDELETE = wx.ToggleButton( self.m_panel7, wx.ID_SAVEFILESDELETE, u"Delete", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer101.Add( self.toggleBtnSAVEFILESDELETE, 0, wx.ALL, 0 )
+
+		self.toggleBtnSAVEFILESBACKUP = wx.ToggleButton( self.m_panel7, wx.ID_SAVEFILESBACKUP, u"Backup", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.toggleBtnSAVEFILESBACKUP.SetValue( True )
+		bSizer101.Add( self.toggleBtnSAVEFILESBACKUP, 0, wx.ALL, 0 )
 
 
-		self.panelSaves.SetSizer( bSizerSaves )
-		self.panelSaves.Layout()
-		bSizerSaves.Fit( self.panelSaves )
-		self.notebookModSaves.AddPage( self.panelSaves, u"Save Files", True )
+		bSizer91.Add( bSizer101, 0, wx.ALL|wx.EXPAND, 0 )
 
-		bSizer4.Add( self.notebookModSaves, 0, wx.EXPAND |wx.ALL, 0 )
+		bSizer171 = wx.BoxSizer( wx.VERTICAL )
 
-
-		bSizerTabs.Add( bSizer4, 0, wx.ALL|wx.EXPAND, 0 )
+		m_checkList41Choices = []
+		self.m_checkList41 = wx.CheckListBox( self.m_panel7, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_checkList41Choices, 0 )
+		bSizer171.Add( self.m_checkList41, 0, wx.ALL|wx.EXPAND, 0 )
 
 
-		self.panelMain.SetSizer( bSizerTabs )
-		self.panelMain.Layout()
-		bSizerTabs.Fit( self.panelMain )
-		bSizerMainFrame.Add( self.panelMain, 0, wx.EXPAND |wx.ALL, 0 )
+		bSizer91.Add( bSizer171, 1, wx.ALL|wx.EXPAND, 5 )
+
+
+		self.m_panel7.SetSizer( bSizer91 )
+		self.m_panel7.Layout()
+		bSizer91.Fit( self.m_panel7 )
+		self.m_notebook2.AddPage( self.m_panel7, u"SAVE FILES", True )
+
+		bSizerMainFrame.Add( self.m_notebook2, 0, wx.EXPAND |wx.ALL, 0 )
 
 
 		bSizerFrameMain.Add( bSizerMainFrame, 0, wx.ALL|wx.EXPAND, 0 )
@@ -125,6 +135,10 @@ class FrameMain ( wx.Frame ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
+		self.toggleBtnMODLISTENABLEDISABLE.Bind( wx.EVT_TOGGLEBUTTON, self.toggleBtnMODLISTENABLEDISABLEOnToggleButton )
+		self.toggleBtnMODLISTBACKUP.Bind( wx.EVT_TOGGLEBUTTON, self.toggleBtnMODLISTBACKUPOnToggleButton )
+		self.toggleBtnSAVEFILESDELETE.Bind( wx.EVT_TOGGLEBUTTON, self.toggleBtnSAVEFILESDELETEOnToggleButton )
+		self.toggleBtnSAVEFILESBACKUP.Bind( wx.EVT_TOGGLEBUTTON, self.toggleBtnSAVEFILESBACKUPOnToggleButton )
 		self.Bind( wx.EVT_MENU, self.menuItemFileExitOnMenuSelection, id = self.menuItemFileExit.GetId() )
 		self.Bind( wx.EVT_MENU, self.menuItemToolsAssetEditorOnMenuSelection, id = self.menuItemToolsAssetEditor.GetId() )
 		self.Bind( wx.EVT_MENU, self.menuItemToolsBlenderOnMenuSelection, id = self.menuItemToolsBlender.GetId() )
@@ -136,6 +150,18 @@ class FrameMain ( wx.Frame ):
 
 
 	# Virtual event handlers, overide them in your derived class
+	def toggleBtnMODLISTENABLEDISABLEOnToggleButton( self, event ):
+		event.Skip()
+
+	def toggleBtnMODLISTBACKUPOnToggleButton( self, event ):
+		event.Skip()
+
+	def toggleBtnSAVEFILESDELETEOnToggleButton( self, event ):
+		event.Skip()
+
+	def toggleBtnSAVEFILESBACKUPOnToggleButton( self, event ):
+		event.Skip()
+
 	def menuItemFileExitOnMenuSelection( self, event ):
 		event.Skip()
 
